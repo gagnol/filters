@@ -1,27 +1,39 @@
-"use client"
+'use client'
 import { useState } from "react";
 import Filter from "@/components/Filter";
 import Reservation from "@/components/Reservation";
 import SearchBox from "@/components/SearchBox";
 import { RECOMMENDED_PRODUCTS } from "@/constant/products";
-import { Box, Button, Checkbox, Heading, Text } from "@radix-ui/themes";
-import { ChevronsLeft, ChevronsRight, CircleChevronDown } from "lucide-react";
+import { Box, Button, Checkbox, Flex, Heading, Text } from "@radix-ui/themes";
+import { ChevronDown, ChevronsLeft, ChevronsRight, CircleChevronDown } from "lucide-react";
 
-
-export default function Home({ searchParams }:any) {
+export default function Home({ searchParams }: any) {
   const [query, setQuery] = useState(searchParams.query || '');
   const [page, setPage] = useState(parseInt(searchParams.page, 10) || 1);
+  const [filterCategory, setFilterCategory] = useState<string>('');
+  const [selectedProduct, setSelectedProduct] = useState<any>(null); // Track the selected product
+
   const perPage = 7;
 
-  const handleSearch = (newQuery:any) => {
+  const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
     setPage(1); // Reset to first page on new search
   };
 
+  const handleFilterChange = (category: string) => {
+    setFilterCategory(category);
+    setPage(1); // Reset to first page on new filter
+  };
+
+  // Get unique categories from the products
+  const categories = Array.from(new Set(RECOMMENDED_PRODUCTS.map(product => product.category)));
+
   // Filter and paginate the recommended products
-  const filteredProducts = RECOMMENDED_PRODUCTS.filter(product =>
-    product.name.toLowerCase().includes(query.toLowerCase())
-  );
+  const filteredProducts = RECOMMENDED_PRODUCTS
+    .filter(product => 
+      product.name.toLowerCase().includes(query.toLowerCase()) &&
+      (filterCategory ? product.category === filterCategory : true)
+    );
   const totalProducts = filteredProducts.length;
   const totalPages = Math.ceil(totalProducts / perPage);
   const paginatedProducts = filteredProducts.slice((page - 1) * perPage, page * perPage);
@@ -41,36 +53,44 @@ export default function Home({ searchParams }:any) {
     <section className="max-w-screen-xl w-full mx-auto my-2 h-full bg-[#f4f3f9]">
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <div className='overflow-hidden col-span-1 xl:col-span-2 min-h-[850px]'>
-          <Box className="rounded-xl mx-2 my-5 bg-[#ffff] min-h-[780px] shadow-lg">
-            <Heading className="pt-5 px-5">Peter Pan Sobre Hielo</Heading>
+          <Box className="rounded-xl mx-2 my-5 bg-[#ffff] min-h-[850px] shadow-lg">
+            <Heading size="7" className="pt-5 px-5 text-[#6b2980]">Eventos Joinnus</Heading>
             <SearchBox onSearch={handleSearch} />
             <Box className="mx-5 pt-1 px-5 flex border-2 rounded-xl">
               <Heading size="5" className="pt-1 px-4">Filtra los Eventos</Heading>
-              <Filter />
-              <Box className="ml-[140px] my-1 space-x-4">
-                <Button variant="surface" color="gray">Limpiar Filtros</Button>
-                <Button variant="classic" color="gray">Aplicar Filtros</Button>
+              <Flex className="justify-between">
+              <Filter categories={categories} onFilterChange={handleFilterChange} />
+               <Button 
+               size="3"
+               mb="2"
+               mx="1"
+               variant="surface" 
+               color="gray" 
+               onClick={() => setFilterCategory('')}>
+                  Limpiar Filtros
+                  </Button>
+                </Flex>
               </Box>
-            </Box>
             <Box className="mx-5 my-5 pt-5 px-5 flex border-2 rounded-xl">
-              <table className="min-w-full divide-y divide-gray-500 text-center">
+            <table className="min-w-full divide-y divide-gray-500 text-center min-h-[500px]">
                 <thead className="bg-[#f4f3f9]">
                   <tr>
                     <th scope="col" className="px-2 py-3 text-xs font-medium tracking-wider">
                       <Checkbox size="3" />
                     </th>
-                    <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider w-3/4 text-left">
+                    <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider
+                     w-3/4 text-left">
                       <Text size="2">Todos los Eventos</Text>
                     </th>
                     <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider text-center">
                       N&#x2070; Funciones
                     </th>
                     <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider text-center">
-                      <CircleChevronDown />
+                      <ChevronDown />
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="min-h-[500px]">
                   {paginatedProducts.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="px-6 py-4 whitespace-nowrap text-sm">
@@ -78,13 +98,13 @@ export default function Home({ searchParams }:any) {
                       </td>
                     </tr>
                   ) : (
-                    paginatedProducts.map((item) => (
-                      <tr key={item.id} className="hover:bg-[#fdf1ff] border-b border-1">
+                    paginatedProducts.map((item, index) => (
+                      <tr key={item.id} className={`hover:bg-[#fdf1ff] border-b border-1 ${paginatedProducts.length < 7 ? 'h-[72px]' : ''}`}>
                         <td className="px-2 py-4 whitespace-nowrap text-sm">
                           <Checkbox size="3" />
                         </td>
                         <td className="px-1 py-4 whitespace-nowrap text-left">
-                          {item.name.substring(15, 45)}
+                          {item.name.substring(0, 30)}
                         </td>
                         <td className="px-1 py-4 whitespace-nowrap text-sm font-bold text-center">
                           {item.countInStock}
@@ -94,6 +114,13 @@ export default function Home({ searchParams }:any) {
                             Dato
                           </Button>
                         </td>
+                      </tr>
+                    ))
+                  )}
+                  {paginatedProducts.length < 7 && (
+                    Array.from({ length: 7 - paginatedProducts.length }).map((_, index) => (
+                      <tr key={`empty-${index}`} className="h-[62px]">
+                        <td colSpan={4}></td>
                       </tr>
                     ))
                   )}
