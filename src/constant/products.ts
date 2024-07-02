@@ -11,7 +11,7 @@ export const RECOMMENDED_PRODUCTS = [
     ],
         "description": "[Fit & Sizing]: For the signature Legendary Whitetails fit, see our size chart which accomodiates Standard and Big & Tall sizes; the Journeyman shirt jacket is designed for extra layering [Material & Durability]: Experience the Legendary Whitetails men's jacket quality with a blend of Cotton and Polyester; its rugged waxed cotton suede appearance, softer to the touch, promises durability and is weather-resistant[Warmth & Comfort]: Top quality flannel-lined for ultimate warmth, the Legendary Whitetails Journeyman is your shield against cold, transitional jacket for every season.",
         "department": "Men",
-        "category": "Infantil",
+        "category": "Eventos Familia",
         "topDeal": true,
         "bestSeller": false,
         "countInStock": 17,
@@ -27,16 +27,19 @@ export const RECOMMENDED_PRODUCTS = [
   
       {
         "video": "",
-        "name": "Legendary Whitetails Men's Rugged Full Zip Dakota Jacket",
-        "discount": 15,
-        "numReviews": 320,
-        "rating": 4.1,
-        "isFeature": false,
+        "name": "Bacilos vs Juanes",
+       "Fecha": ["17/06/2024","18/06/2024"],
+        "Hora": ["4:30 P.M.","7:30 P.M."],
+        "rating": 4.6,
+        "Tipo": [
+      { "name": "Silla Palco", "price": 175.00 },
+      { "name": "Silla Palco Niños/Adultos", "price": 142.00 }
+    ],
         "brand": "Legendary",
         "price": 115.19,
         "description": "Cotton suede shell.Full front zipper, snap cuffs.Removable Hood. 5 Pockets: 2 Front, 1 Zippered Chest, 2 Inside.Signature Buck logo on hood",
         "department": "Men",
-        "category": "Jacket",
+        "category": "Eventos Musicales",
         "topDeal": true,
         "bestSeller": false,
         "countInStock": 9,
@@ -52,16 +55,18 @@ export const RECOMMENDED_PRODUCTS = [
   
       {
         "video": "",
-        "name": "Legendary Whitetails Men's Archer Flannel Thermal Lined Shirt Jacket, Quilted Insulated Plaid Work Outerwear Coat",
-        "discount": 0,
-        "numReviews": 221,
-        "rating": 3.6,
-        "isFeature": true,
-        "brand": "Legendary",
+        "name": "Amor y Odio",
+       "Fecha": ["17/07/2024","18/07/2024"],
+        "Hora": ["3:30 P.M.","7:30 P.M."],
+        "rating": 4.6,
+        "Tipo": [
+      { "name": "Silla Palco", "price": 92.00 },
+      { "name": "Silla Palco Niños/Adultos", "price": 62.00 }
+    ],
         "price": 69.99,
         "description": "60% Cotton, 40% Polyester, Imported, [Fit & Quality]: True to size; for the signature Legendary Whitetails men's fit, refer to our size chart; this flannel shirt jacket is crafted with high-quality construction and detail, ensuring durability and a timeless look [Material & Warmth]: High quality construction and detail make this insulated flannel a standout Legendary shirt jac; coat features a 100% top quality cotton/poly blend thermal lining in the body, and smooth lined quilted sleeves; full poly-fill insulation and convenient side-seam pockets ensures you stay warm from cuff to cuff, making it a top choice among flannel shirt jackets for men [Color Fading]: Made of yarn-dyed 100% cotton plaid, this shirt jacket offers a crisper, sharper look; it's also a quick way to tell you're getting a high quality shirt; trust in our fade-resistant fabric to keep your men's flannel long sleeve shirt looking as vibrant as day one, wash after wash; the yarn-dyed plaid pattern showcases a high-quality design, setting you apart",
         "department": "Men",
-        "category": "Flannel",
+        "category": "Eventos Comedia",
         "topDeal": true,
         "bestSeller": false,
         "countInStock": 17,
@@ -376,73 +381,3 @@ export const RECOMMENDED_PRODUCTS = [
       }
 ]
 
-export const QUICK_OFFERS = [
-    {
-        id: "5526",
-        name: "Flannel",
-        discount: "-25%",
-        image: "https://m.media-amazon.com/images/I/81AGBVroP3L._AC_SX679_.jpg",
-    },
-    {
-        id: "534526", 
-        name: "Hoodies",
-        discount: "-15%",
-        image: "https://m.media-amazon.com/images/I/81CLl+ljl+L._AC_SX569_.jpg",
-    },
-    {
-        id: "532456",
-        name: "Jacket",
-        discount: "-20%",
-        image: "https://m.media-amazon.com/images/I/81JprHUYo6L._AC_SY550_.jpg",
-    },
-    {
-        id: "24526",
-        name: "Shirt",
-        discount: "-35%",
-        image: "https://m.media-amazon.com/images/I/71W+TZX4Q9L._AC_SX569_.jpg",
-    },
-    {
-        id: "4526",
-        name: "Pullover",
-        image: "https://m.media-amazon.com/images/I/81uh8z1IRwL._AC_SX522_.jpg",
-    },
-    {
-      id: "24554",
-      name: "Shirt",
-      discount: "-35%",
-      image: "https://m.media-amazon.com/images/I/71W+TZX4Q9L._AC_SX569_.jpg",
-  },
-  {
-    id: "24555",
-    name: "Shirt",
-    discount: "-35%",
-    image: "https://m.media-amazon.com/images/I/71W+TZX4Q9L._AC_SX569_.jpg",
-},
-]
-
-export const TRENDING_CATEGORIES = [
-    {
-        id: 1,
-        name: "Fannels",
-        image: "/lenador.jpg",
-        link:"/search?department=Flannel"
-    },
-    {
-        id: 2,
-        name: "Shirts",
-        image: "/cow6.jpg",
-        link:"/search?department=Shirt"
-    },
-    {
-        id: 3,
-        name: "Accesories",
-        image: "/accesories.jpg",
-        link:"/search?department=Accesories"
-    },
-    {
-      id: 4,
-      name: "Jackets",
-      image: "/advertise.jpg",
-      link:"/search?department=Jacket"
-  },
-]

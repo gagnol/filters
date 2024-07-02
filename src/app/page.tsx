@@ -5,14 +5,15 @@ import Reservation from "@/components/Reservation";
 import SearchBox from "@/components/SearchBox";
 import { RECOMMENDED_PRODUCTS } from "@/constant/products";
 import { Box, Button, Checkbox, Flex, Heading, Text } from "@radix-ui/themes";
-import { ChevronDown, ChevronsLeft, ChevronsRight, CircleChevronDown } from "lucide-react";
+import { ChevronsLeft, ChevronsRight, CircleChevronDown } from "lucide-react";
 
 export default function Home({ searchParams }: any) {
   const [query, setQuery] = useState(searchParams.query || '');
   const [page, setPage] = useState(parseInt(searchParams.page, 10) || 1);
   const [filterCategory, setFilterCategory] = useState<string>('');
   const [selectedProduct, setSelectedProduct] = useState<any>(null); // Track the selected product
-
+ 
+  
   const perPage = 7;
 
   const handleSearch = (newQuery: string) => {
@@ -23,6 +24,10 @@ export default function Home({ searchParams }: any) {
   const handleFilterChange = (category: string) => {
     setFilterCategory(category);
     setPage(1); // Reset to first page on new filter
+  };
+
+  const handleProductSelect = (product: any) => {
+    setSelectedProduct(product);
   };
 
   // Get unique categories from the products
@@ -54,7 +59,7 @@ export default function Home({ searchParams }: any) {
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <div className='overflow-hidden col-span-1 xl:col-span-2 min-h-[850px]'>
           <Box className="rounded-xl mx-2 my-5 bg-[#ffff] min-h-[850px] shadow-lg">
-            <Heading size="7" className="pt-5 px-5 text-[#6b2980]">Eventos Joinnus</Heading>
+            <Heading size="8" className="pt-5 px-5 text-[#6b2980]">Eventos Joinnus</Heading>
             <SearchBox onSearch={handleSearch} />
             <Box className="mx-5 pt-1 px-5 flex border-2 rounded-xl">
               <Heading size="5" className="pt-1 px-4">Filtra los Eventos</Heading>
@@ -78,15 +83,14 @@ export default function Home({ searchParams }: any) {
                     <th scope="col" className="px-2 py-3 text-xs font-medium tracking-wider">
                       <Checkbox size="3" />
                     </th>
-                    <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider
-                     w-3/4 text-left">
+                    <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider w-3/4 text-left">
                       <Text size="2">Todos los Eventos</Text>
                     </th>
                     <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider text-center">
                       N&#x2070; Funciones
                     </th>
                     <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider text-center">
-                      <ChevronDown />
+                      <CircleChevronDown />
                     </th>
                   </tr>
                 </thead>
@@ -99,9 +103,14 @@ export default function Home({ searchParams }: any) {
                     </tr>
                   ) : (
                     paginatedProducts.map((item, index) => (
-                      <tr key={item.id} className={`hover:bg-[#fdf1ff] border-b border-1 ${paginatedProducts.length < 7 ? 'h-[72px]' : ''}`}>
+                      <tr key={item.id} className={`hover:bg-[#fdf1ff] border-b border-1
+                       ${paginatedProducts.length < 7 ? 'h-[62px]' : ''}`}>
                         <td className="px-2 py-4 whitespace-nowrap text-sm">
-                          <Checkbox size="3" />
+                         <input 
+                          type="checkbox" 
+                          checked={selectedProduct?.id === item.id} 
+                          onChange={() => handleProductSelect(item)}
+                         />
                         </td>
                         <td className="px-1 py-4 whitespace-nowrap text-left">
                           {item.name.substring(0, 30)}
@@ -117,7 +126,7 @@ export default function Home({ searchParams }: any) {
                       </tr>
                     ))
                   )}
-                  {paginatedProducts.length < 7 && (
+                    {paginatedProducts.length < 7 && (
                     Array.from({ length: 7 - paginatedProducts.length }).map((_, index) => (
                       <tr key={`empty-${index}`} className="h-[62px]">
                         <td colSpan={4}></td>
@@ -164,9 +173,8 @@ export default function Home({ searchParams }: any) {
         </div>
         <div className='overflow-hidden col-span-1 xl:col-span-3 min-h-[850px]'>
           <Box className="rounded-xl mx-2 my-5 bg-[#ffff] min-h-[850px] shadow-lg">
-            <Heading className="pt-5 px-5">Peter Pan Sobre Hielo</Heading>
             <Box className="p-5">
-              <Reservation />
+              <Reservation selectedProduct={selectedProduct} />
             </Box>
           </Box>
         </div>

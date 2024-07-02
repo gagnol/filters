@@ -26,7 +26,6 @@ const Filter: React.FC<FilterProps> = ({ categories, onFilterChange }) => {
             placeholder="Filtros"
             className="w-full"
           >
-            
             <TextField.Slot>
               <FilterIcon height="16" width="16" />
               Filtros
