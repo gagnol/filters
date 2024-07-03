@@ -5,14 +5,14 @@ import React from 'react'
 const Reservation = ({ selectedProduct }:any) => {
   return (
     <>
-      <section className=" w-full mx-auto h-full p-5" id="collection" aria-label="collection">
+      <section className=" w-full mx-auto h-full max-h-[800px] p-5" id="collection" aria-label="collection">
         {selectedProduct ? (
             <>
              <Heading className="pt-0 pb-5 px-5">{selectedProduct.name}</Heading>
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             <div className='overflow-hidden col-span-1 xl:col-span-1 items-center flex justify-center'>
               <Box maxWidth="240px">
-                <Card size="2">
+                <Card size="2" >
                   <Inset clip="padding-box" side="top" pb="current">
                     <Image width={140} height={50} src="/fondo.png" alt="Bold typography"
                       style={{
@@ -97,7 +97,7 @@ const Reservation = ({ selectedProduct }:any) => {
                             <Checkbox size="3" />
                           </td>
                           <td className="px-1 py-4 whitespace-nowrap text-left">
-                            <Strong>{tipo.name}</Strong> -S/{tipo.price}
+                            <Strong>{tipo.name}</Strong> -S/  {tipo.price}
                           </td>
                         </tr>
                       ))}
@@ -106,21 +106,25 @@ const Reservation = ({ selectedProduct }:any) => {
                 </Card>
               </Box>
             </div>
-          </div>
-          </> 
-        ) : (
-          <div className="text-center min-h-[800px] justify-center ">
-            <Text size="4">Nothing is selected</Text>
-            <Image alt='ticket' src="/ticket.png" width={200} height={150}/>
-          </div>
-        )
-      
-        }
-        <div className='my-4 flex justify-end'>
+            <div className='my-4 flex justify-end'>
           <Button variant='classic' size="4">
             Enviar
           </Button>
         </div>
+          </div>
+          </> 
+        ) : (
+          <div className="text-center min-h-[800px] flex flex-col justify-center items-center">
+          <Image alt="ticket" src="/ticket.png" width={200} height={150}/>
+          <Text size="7" className="text-[#6b2980]"><Strong>¡Hola, buen día!</Strong></Text>
+          <br/>
+          <Text size="4" color="gray">Parece que no has elegido ningún evento <br/>todavía</Text>
+        </div>
+        
+        )
+      
+        }
+     
         
       </section>
     </>

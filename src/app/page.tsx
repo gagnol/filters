@@ -1,19 +1,23 @@
-'use client'
-import { useState } from "react";
-import Filter from "@/components/Filter";
-import Reservation from "@/components/Reservation";
-import SearchBox from "@/components/SearchBox";
-import { RECOMMENDED_PRODUCTS } from "@/constant/products";
-import { Box, Button, Checkbox, Flex, Heading, Text } from "@radix-ui/themes";
-import { ChevronsLeft, ChevronsRight, CircleChevronDown } from "lucide-react";
+'use client';
+import { useState } from 'react';
+import Filter from '@/components/Filter';
+import Reservation from '@/components/Reservation';
+import SearchBox from '@/components/SearchBox';
+import { RECOMMENDED_PRODUCTS } from '@/constant/products';
+import { Box, Button, Flex, Heading, Text } from '@radix-ui/themes';
+import { CheckIcon, ChevronsLeft, ChevronsRight, CircleChevronDown } from 'lucide-react';
+import * as Checkbox from '@radix-ui/react-checkbox';
+import Image from 'next/image';
+
 
 export default function Home({ searchParams }: any) {
   const [query, setQuery] = useState(searchParams.query || '');
   const [page, setPage] = useState(parseInt(searchParams.page, 10) || 1);
   const [filterCategory, setFilterCategory] = useState<string>('');
   const [selectedProduct, setSelectedProduct] = useState<any>(null); // Track the selected product
- 
-  
+
+
+
   const perPage = 7;
 
   const handleSearch = (newQuery: string) => {
@@ -26,8 +30,13 @@ export default function Home({ searchParams }: any) {
     setPage(1); // Reset to first page on new filter
   };
 
-  const handleProductSelect = (product: any) => {
-    setSelectedProduct(product);
+
+  const handleProductSelect = (item: any) => {
+    if (selectedProduct?.id === item.id) {
+      setSelectedProduct(null); // Uncheck the checkbox
+    } else {
+      setSelectedProduct(item); // Check the checkbox
+    }
   };
 
   // Get unique categories from the products
@@ -35,7 +44,7 @@ export default function Home({ searchParams }: any) {
 
   // Filter and paginate the recommended products
   const filteredProducts = RECOMMENDED_PRODUCTS
-    .filter(product => 
+    .filter(product =>
       product.name.toLowerCase().includes(query.toLowerCase()) &&
       (filterCategory ? product.category === filterCategory : true)
     );
@@ -64,24 +73,34 @@ export default function Home({ searchParams }: any) {
             <Box className="mx-5 pt-1 px-5 flex border-2 rounded-xl">
               <Heading size="5" className="pt-1 px-4">Filtra los Eventos</Heading>
               <Flex className="justify-between">
-              <Filter categories={categories} onFilterChange={handleFilterChange} />
-               <Button 
-               size="3"
-               mb="2"
-               mx="1"
-               variant="surface" 
-               color="gray" 
-               onClick={() => setFilterCategory('')}>
+                <Filter categories={categories} onFilterChange={handleFilterChange} />
+                <Button
+                  size="3"
+                  mb="2"
+                  mx="1"
+                  variant="surface"
+                  color="gray"
+                  onClick={() => setFilterCategory('')}>
                   Limpiar Filtros
-                  </Button>
-                </Flex>
-              </Box>
+                </Button>
+              </Flex>
+            </Box>
             <Box className="mx-5 my-5 pt-5 px-5 flex border-2 rounded-xl">
-            <table className="min-w-full divide-y divide-gray-500 text-center min-h-[500px]">
+              <table className="min-w-full divide-y divide-gray-500 text-center min-h-[500px]">
                 <thead className="bg-[#f4f3f9]">
                   <tr>
                     <th scope="col" className="px-2 py-3 text-xs font-medium tracking-wider">
-                      <Checkbox size="3" />
+                      <Checkbox.Root
+                        className="
+                        flex h-[16px] w-[16px] appearance-none items-center 
+                        justify-center rounded-[4px] bg-white shadow-[0_2px_10px]
+                        outline-none focus:shadow-[0_0_0_2px_gray]"
+                        id="c1"
+                      >
+                        <Checkbox.Indicator >
+                          <CheckIcon width="14px" className="text-green-500"/>
+                        </Checkbox.Indicator>
+                      </Checkbox.Root>
                     </th>
                     <th scope="col" className="px-1 py-3 text-xs font-medium tracking-wider w-3/4 text-left">
                       <Text size="2">Todos los Eventos</Text>
@@ -94,7 +113,7 @@ export default function Home({ searchParams }: any) {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="min-h-[500px]">
+                <tbody className="min-h-[500px] ">
                   {paginatedProducts.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="px-6 py-4 whitespace-nowrap text-sm">
@@ -103,30 +122,40 @@ export default function Home({ searchParams }: any) {
                     </tr>
                   ) : (
                     paginatedProducts.map((item, index) => (
-                      <tr key={item.id} className={`hover:bg-[#fdf1ff] border-b border-1
-                       ${paginatedProducts.length < 7 ? 'h-[62px]' : ''}`}>
+                      <tr
+                        key={item.id}
+                        className={`hover:bg-[#fdf1ff] border-b border-1  w-[97px] h-[48px]
+                      ${paginatedProducts.length < 7 ? 'h-[62px]' : ''}
+                      ${selectedProduct?.id === item.id ? 'bg-[#fdf1ff]' : ''}`}
+                      >
                         <td className="px-2 py-4 whitespace-nowrap text-sm">
-                         <input 
-                          type="checkbox" 
-                          checked={selectedProduct?.id === item.id} 
-                          onChange={() => handleProductSelect(item)}
-                         />
+                        <Checkbox.Root
+                        className="
+                        flex h-[16px] w-[16px] appearance-none items-center 
+                        justify-center rounded-[4px] bg-white shadow-[0_2px_10px]
+                        outline-none focus:shadow-[0_0_0_2px_gray]"
+                        
+                        checked={selectedProduct?.id === item.id}
+                        onCheckedChange={() => handleProductSelect(item)}
+                      >
+                        <Checkbox.Indicator >
+                          <CheckIcon width="14px" className="text-green-700 font-bold"/>
+                        </Checkbox.Indicator>
+                      </Checkbox.Root>
                         </td>
                         <td className="px-1 py-4 whitespace-nowrap text-left">
                           {item.name.substring(0, 30)}
                         </td>
-                        <td className="px-1 py-4 whitespace-nowrap text-sm font-bold text-center">
+                        <td className="px-1 py-4 whitespace-nowrap text-sm font-bold text-center w-[97px] h-[48px]">
                           {item.countInStock}
                         </td>
-                        <td className="px-1 py-4 text-center">
-                          <Button variant="ghost" size="1">
-                            Dato
-                          </Button>
+                        <td className="px-1 py-4 text-center ">
+                          <Image alt="dato" width={78} height={41} src="/dato.png"/>
                         </td>
                       </tr>
                     ))
                   )}
-                    {paginatedProducts.length < 7 && (
+                  {paginatedProducts.length < 7 && (
                     Array.from({ length: 7 - paginatedProducts.length }).map((_, index) => (
                       <tr key={`empty-${index}`} className="h-[62px]">
                         <td colSpan={4}></td>
@@ -174,7 +203,7 @@ export default function Home({ searchParams }: any) {
         <div className='overflow-hidden col-span-1 xl:col-span-3 min-h-[850px]'>
           <Box className="rounded-xl mx-2 my-5 bg-[#ffff] min-h-[850px] shadow-lg">
             <Box className="p-5">
-              <Reservation selectedProduct={selectedProduct} />
+              <Reservation selectedProduct={selectedProduct}/>
             </Box>
           </Box>
         </div>
