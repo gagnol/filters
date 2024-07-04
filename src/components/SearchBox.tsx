@@ -26,20 +26,20 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onSearch }) => {
   }
 
   return (
-    <div className="md:inline-flex w-[98%] mx-2">
+    <div className="md:inline-flex h-[48px] w-full mb-[8px]">
       <form 
       action="/search" 
       method="GET" 
-      className="w-full mx-4 my-2 bg-[#edecf2]" 
+      className="w-full " 
       onSubmit={handleSubmit}>
-        <div className="join flex w-full">
+        <div className="join flex w-full bg-[#edecf2]">
           <TextField.Root
             size="3"
             value={query}
             onChange={handleChange}
             name="q"
             placeholder="Busca el Evento"
-            className="w-full"
+            className="w-full "
           >
             <TextField.Slot>
               <MagnifyingGlassIcon height="16" width="16" />

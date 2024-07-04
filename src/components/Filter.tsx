@@ -17,7 +17,7 @@ const Filter: React.FC<FilterProps> = ({ categories, onFilterChange }) => {
   };
 
   return (
-    <div className="md:inline-flex w-full">
+    <div className="md:inline-flex w-full mb-[16px]">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger >
           <TextField.Root
