@@ -9,11 +9,14 @@ const Reservation = ({ selectedProduct,d}: any) => {
   return (
     <>
       <section className=" w-full mx-auto h-full max-h-[850px] min-h-[850px]
-       px-[32px] py-[14px] relative">
+       px-[32px] py-[14px] relative shadow-xl">
         {selectedProduct ? (
           <>
-            <Heading className="pt-0 pb-[16px] text-[32px]">{selectedProduct.name}</Heading>
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Heading className="pt-0 pb-[16px] text-[32px]">
+              {selectedProduct.name}
+            </Heading>
+            <div className="grid grid-cols-1 
+            sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className='overflow-hidden col-span-1 items-center flex justify-center'>
                 <Box maxWidth="140px" className="max-h-[300px]  xl:min-h-[576px]">
                   <Card size="2">
@@ -28,7 +31,8 @@ const Reservation = ({ selectedProduct,d}: any) => {
                         }}
                       />
                       <Text className='absolute top-3 left-4 text-gray-500'>
-                      < Checkbox size="3" />  <Strong>Fecha</Strong>
+                      < Checkbox size="3" /> 
+                      &nbsp;<Strong>Fecha</Strong>
                       </Text>
                     </Inset>
                     <table className="min-w-full divide-y divide-gray-500 text-center">
@@ -48,8 +52,10 @@ const Reservation = ({ selectedProduct,d}: any) => {
                   </Card>
                 </Box>
               </div>
-              <div className='overflow-hidden col-span-1 items-center flex justify-center'>
-                <Box maxWidth="140px" className="max-h-[300px]  xl:min-h-[576px] relative">
+              <div className='overflow-hidden col-span-1 
+              items-center flex justify-center'>
+                <Box maxWidth="140px" className="max-h-[300px] 
+                 xl:min-h-[576px] relative">
                   <Card size="2">
                     <Inset clip="padding-box" side="top" pb="current">
                       <Image width={140} height={50} src="/fondo.png" alt="Bold typography"
@@ -62,10 +68,10 @@ const Reservation = ({ selectedProduct,d}: any) => {
                         }}
                       />
                      <Text className='absolute top-3 left-4 text-gray-500'>
-                      < Checkbox size="3" />  <Strong>Hora</Strong>
+                      < Checkbox size="3" /> 
+                      &nbsp;<Strong>Hora</Strong>
                       </Text>
-                        
-                    </Inset>
+                   </Inset>
                     <table className="min-w-full divide-y divide-gray-500 text-center">
                       <tbody>
                         {selectedProduct.Hora.map((hora: any, index: any) => (
@@ -97,7 +103,8 @@ const Reservation = ({ selectedProduct,d}: any) => {
                         }}
                       />
                      <Text className='absolute top-3 left-4 text-gray-500'>
-                      < Checkbox size="3" />  <Strong>Tipo de Entrada</Strong>
+                      < Checkbox size="3" /> 
+                      &nbsp; <Strong>Tipo de Entrada</Strong>
                       </Text>
                     </Inset>
                     <table className="min-w-full divide-y divide-gray-500 text-center">
@@ -107,8 +114,11 @@ const Reservation = ({ selectedProduct,d}: any) => {
                             <td className="py-4 whitespace-nowrap text-sm">
                               <Checkbox size="3" />
                             </td>
-                            <td className="px-1 py-4 whitespace-nowrap text-left text-gray-500">
+                            <td className="px-1 py-4 whitespace-nowrap 
+                            text-left text-gray-500">
+                              <Text size="1">
                               <Strong>{tipo.name}</Strong> -S/ ${tipo.price}
+                              </Text>
                             </td>
                           </tr>
                         ))}
@@ -118,7 +128,7 @@ const Reservation = ({ selectedProduct,d}: any) => {
                 </Box>
               </div>
             </div>
-            <div className="absolute bottom-10 right-10">
+            <div className="absolute bottom-5 right-10">
               <Button 
                 variant='classic' 
                 style={{ width: '172px', height: '44px', backgroundColor:'#0dcbb4' }}>
