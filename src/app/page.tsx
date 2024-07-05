@@ -86,9 +86,11 @@ export default function Home({ searchParams }: any) {
   return (
     <section className="md:max-w-screen-lg max-w-screen-xl w-full 
     mx-auto bg-gray-200 min-h-screen px-4 py-4">
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 mb-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 
+      lg:grid-cols-5 mb-2 gap-4">
         <div className="overflow-hidden col-span-1 xl:col-span-2 max-h-[850px] min-h-[850px]">
-          <Box className="rounded-xl bg-[#ffff] min-h-screen pt-4 pb-2 px-4">
+          <Box className="rounded-xl bg-[#ffff] max-h-[860px] 
+          pt-4 pb-2 px-4">
             <Heading className="text-[#6b2980] text-3xl pb-4">
               Eventos Joinnus
             </Heading>

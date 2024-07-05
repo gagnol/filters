@@ -128,7 +128,7 @@ const Reservation = ({ selectedProduct,d}: any) => {
                 </Box>
               </div>
             </div>
-            <div className="absolute bottom-5 right-10">
+            <div className="absolute bottom-6 right-10">
               <Button 
                 variant='classic' 
                 style={{ width: '172px', height: '44px', backgroundColor:'#0dcbb4' }}>
